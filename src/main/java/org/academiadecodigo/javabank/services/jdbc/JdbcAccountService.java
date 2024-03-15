@@ -199,14 +199,13 @@ public class JdbcAccountService implements AccountService {
 
     private void updateBalance(int id, double totalBalance, int version) throws SQLException {
 
-        String query = "UPDATE account SET balance = ?, version = ? WHERE id = ? AND version = ?";
+        String query = "UPDATE account SET balance = ?, version = ? WHERE id = ?";
 
         PreparedStatement statement = connectionManager.getConnection().prepareStatement(query);
 
         statement.setDouble(1, totalBalance);
         statement.setInt(2, version + 1);
         statement.setInt(3, id);
-        statement.setInt(4, version);
 
         statement.executeUpdate();
         statement.close();
